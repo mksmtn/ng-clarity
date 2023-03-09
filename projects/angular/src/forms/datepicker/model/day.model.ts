@@ -48,6 +48,11 @@ export class DayModel {
   }
 
   toDateString(): string {
-    return this.toDate().toLocaleDateString();
+    return this.toDate().toLocaleDateString(undefined, {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
   }
 }
