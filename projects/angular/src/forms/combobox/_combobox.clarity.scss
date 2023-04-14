@@ -207,7 +207,8 @@
       }
     }
 
-    .clr-combobox-options-empty-text {
+    .clr-combobox-options-empty-text,
+    .clr-combobox-option-group-label {
       padding-left: $clr_baselineRem_0_5;
     }
   }

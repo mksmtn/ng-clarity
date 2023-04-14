@@ -23,6 +23,7 @@ import { OptionSelectionService } from './providers/option-selection.service';
 
 @Directive({
   selector: '[clrOptionItems][clrOptionItemsOf]',
+  exportAs: 'clrOptionItems',
 })
 export class ClrOptionItems<T> implements DoCheck, OnDestroy {
   private iterableProxy: NgForOf<T>;
@@ -48,6 +49,11 @@ export class ClrOptionItems<T> implements DoCheck, OnDestroy {
   set field(field: string) {
     this._filterField = field;
     this.optionService.displayField = field;
+  }
+
+  get hasResults() {
+    // explicity return `undefined` instead of `false` if the answer is not known
+    return this.filteredItems ? this.filteredItems.length : undefined;
   }
 
   constructor(

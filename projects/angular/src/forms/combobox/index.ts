@@ -7,6 +7,7 @@
 export * from './combobox.module';
 export * from './combobox-container';
 export * from './combobox';
+export * from './combobox-option-group.directive';
 export * from './options';
 export * from './option';
 export * from './option-items.directive';
