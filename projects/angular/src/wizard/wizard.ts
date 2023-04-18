@@ -46,6 +46,11 @@ import { ClrWizardPage } from './wizard-page';
 })
 export class ClrWizard implements OnDestroy, AfterContentInit, DoCheck {
   /**
+   * Set the modal title of the wizard. Set using `[clrWizardTitle]` input.
+   */
+  @Input('clrWizardTitle') title: string;
+
+  /**
    * Set the modal size of the wizard. Set using `[clrWizardSize]` input.
    */
   @Input('clrWizardSize') size = 'xl';

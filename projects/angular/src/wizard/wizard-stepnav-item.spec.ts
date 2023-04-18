@@ -40,7 +40,7 @@ class TestComponent implements AfterContentInit {
   navTitleRef: ClrWizardPageNavTitle;
 
   ngAfterContentInit(): void {
-    this.page.navTitle = this.navTitleRef.pageNavTitleTemplateRef;
+    this.page.navTitleTemplateRef = this.navTitleRef.pageNavTitleTemplateRef;
   }
 }
 

@@ -281,6 +281,7 @@
     }
 
     .clr-wizard-stepnav-link {
+      height: auto;
       width: 100%;
       display: flex;
       color: inherit;
@@ -306,6 +307,7 @@
       }
     }
 
+    clr-wizard-title,
     .clr-wizard-title {
       @include css-var(color, clr-wizard-title-text, $clr-wizard-title-text, $clr-use-custom-properties);
       margin-top: 0;
@@ -364,6 +366,16 @@
 
     .clr-wizard-content {
       display: block;
+    }
+
+    .clr-wizard-page-title {
+      @include css-var(color, clr-wizard-title-text, $clr-wizard-title-text, $clr-use-custom-properties);
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      font-size: $clr-modal-title-font-size;
+      line-height: $clr_baselineRem_1_13;
+      margin-top: 0;
     }
 
     .clr-wizard-page:not([aria-hidden='true']) {

@@ -12,6 +12,7 @@ import { ClrWizard } from '../wizard';
   template: `
     <clr-wizard
       #wizard
+      [clrWizardTitle]="title"
       [clrWizardOpen]="open"
       (clrWizardOpenChange)="onOpenChange()"
       [clrWizardSize]="mySize"
@@ -55,6 +56,7 @@ export class TemplateApiWizardTestComponent {
   @ViewChild('wizard', { static: true })
   wizard: ClrWizard;
   mySize: string;
+  title;
   projectedTitle = 'My Great Title';
   projectedPageTitle = 'Title for Page 2';
   open = true;

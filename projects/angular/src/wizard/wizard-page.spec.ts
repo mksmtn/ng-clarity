@@ -50,9 +50,12 @@ class MyPageCollectionMock extends PageCollectionMock {
         <clr-wizard-button [type]="'cancel'">Cancel</clr-wizard-button>
       </ng-template>
     </clr-wizard-page>
+    <clr-wizard-page [clrWizardPageTitle]="pageTitle" [clrWizardPageNavTitle]="pageNavTitle"> </clr-wizard-page>
   `,
 })
 class TypescriptTestComponent {
+  pageTitle;
+  pageNavTitle;
   @ViewChildren(ClrWizardPage) wizardPageChildren: QueryList<ClrWizardPage>;
 }
 
@@ -238,6 +241,7 @@ export default function (): void {
     let testComponent: TypescriptTestComponent;
     let testWizardPage: ClrWizardPage;
     let otherWizardPage: ClrWizardPage;
+    let titleBindingPage: ClrWizardPage;
     const pageCollection = new MyPageCollectionMock();
     let navService: WizardNavigationService;
 
@@ -371,6 +375,7 @@ export default function (): void {
         navService = fixture.debugElement.injector.get(WizardNavigationService);
         testWizardPage = testComponent.wizardPageChildren.toArray()[0];
         otherWizardPage = testComponent.wizardPageChildren.toArray()[1];
+        titleBindingPage = testComponent.wizardPageChildren.toArray()[2];
       });
 
       afterEach(() => {
@@ -529,18 +534,36 @@ export default function (): void {
         });
       });
 
-      describe('title', () => {
+      describe('clrWizardPageTitle', () => {
+        it('can be set and updated via input', () => {
+          expect(titleBindingPage.title).toBeUndefined();
+          testComponent.pageTitle = 'page title binding';
+          fixture.detectChanges();
+          expect(titleBindingPage.title).toBe('page title binding');
+        });
+      });
+
+      describe('clrWizardPageNavTitle', () => {
+        it('can be set and updated via input', () => {
+          expect(titleBindingPage.navTitle).toBeUndefined();
+          testComponent.pageNavTitle = 'page nav title binding';
+          fixture.detectChanges();
+          expect(titleBindingPage.navTitle).toBe('page nav title binding');
+        });
+      });
+
+      describe('titleTemplateRef', () => {
         it('should return page title template ref', () => {
-          const testMe = testWizardPage.title;
+          const testMe = testWizardPage.titleTemplateRef;
           expect(testMe).toBeDefined('title template ref should be a thing');
           // expect(testMe).toEqual(jasmine.any(TemplateRef), "page title should be a template ref");
         });
       });
 
-      describe('navTitle', () => {
+      describe('navTitleTemplateRef', () => {
         it('should return page nav title template ref instead of page title, if it exists', () => {
-          const testMe = otherWizardPage.navTitle;
-          const notToBe = otherWizardPage.title;
+          const testMe = otherWizardPage.navTitleTemplateRef;
+          const notToBe = otherWizardPage.titleTemplateRef;
 
           // otherpage has a nav title
           expect(testMe).toBeDefined('nav title template ref should be a thing');
@@ -549,8 +572,8 @@ export default function (): void {
         });
 
         it('should return page title if no page nav title is specified', () => {
-          const testMe = testWizardPage.navTitle;
-          const expected = testWizardPage.title;
+          const testMe = testWizardPage.navTitleTemplateRef;
+          const expected = testWizardPage.titleTemplateRef;
           // testpage has no nav title
           expect(testMe).toBeDefined('nav title template ref should be a thing');
           // view piece is covered below; for now, we want to test just the API

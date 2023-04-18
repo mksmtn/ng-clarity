@@ -13,21 +13,23 @@ import { setupStorybook } from '../../helpers/setup-storybook.helpers';
 
 const defaultStory: Story = args => ({
   template: `
-    <clr-wizard [clrWizardOpen]="true">
-      <clr-wizard-title>Wizard</clr-wizard-title>
+    <clr-wizard 
+      [clrWizardOpen]="true"
+      [clrWizardTitle]="clrWizardTitle">
 
       <clr-wizard-button type="cancel">Cancel</clr-wizard-button>
       <clr-wizard-button type="previous">Previous</clr-wizard-button>
       <clr-wizard-button type="next">Next</clr-wizard-button>
       <clr-wizard-button type="finish">Finish</clr-wizard-button>
 
-      <clr-wizard-page>
-        <ng-template clrPageTitle>First Page</ng-template>
+      <clr-wizard-page clrWizardPageTitle="First Page" clrWizardPageNavTitle="First Nav Page">
         <p>Content for first page. Click next to see story page.</p>
       </clr-wizard-page>
 
       <clr-wizard-page
         [id]="id"
+        clrWizardPageTitle="Story Page"
+        clrWizardPageNavTitle="Story Nav Page"
         [clrWizardPageHasError]="clrWizardPageHasError"
         [clrWizardPageNextDisabled]="clrWizardPageNextDisabled"
         [clrWizardPagePreventDefaultCancel]="clrWizardPagePreventDefaultCancel"
@@ -46,12 +48,10 @@ const defaultStory: Story = args => ({
         (clrWizardPagePreviousDisabledChange)="clrWizardPagePreviousDisabledChange($event)"
         (clrWizardPagePrimary)="clrWizardPagePrimary($event)"
       >
-        <ng-template clrPageTitle>Story Page</ng-template>
         <p>Content for story page.</p>
       </clr-wizard-page>
 
-      <clr-wizard-page>
-        <ng-template clrPageTitle>Last Page</ng-template>
+      <clr-wizard-page clrWizardPageTitle="Last Page" clrWizardPageNavTitle="Last Nav Page">
         <p>Content for last page. Click previous to see story page.</p>
       </clr-wizard-page>
     </clr-wizard>
@@ -64,6 +64,7 @@ const defaultParameters: Parameters = {
   component: ClrWizardPage,
   argTypes: {
     // inputs
+    clrWizardTitle: { defaultValue: 'Wizard', control: { type: 'text' } },
     clrWizardPageHasError: { defaultValue: false },
     clrWizardPageNextDisabled: { defaultValue: false },
     clrWizardPagePreventDefault: { defaultValue: false, control: { type: 'boolean' } },

@@ -464,6 +464,20 @@ export class ClrWizardPage implements OnInit {
   @Output('clrWizardPageCustomButton') customButtonClicked: EventEmitter<string> = new EventEmitter();
 
   /**
+   *
+   * @memberof WizardPage
+   *
+   */
+  @Input('clrWizardPageTitle') title: string;
+
+  /**
+   *
+   * @memberof WizardPage
+   *
+   */
+  @Input('clrWizardPageNavTitle') navTitle: string;
+
+  /**
    * An input value that is used internally to generate the ClrWizardPage ID as
    * well as the step nav item ID.
    *
@@ -606,8 +620,8 @@ export class ClrWizardPage implements OnInit {
    * @memberof WizardPage
    *
    */
-  get title(): TemplateRef<any> {
-    return this.pageTitle.pageTitleTemplateRef;
+  get titleTemplateRef(): TemplateRef<any> {
+    return this.pageTitle?.pageTitleTemplateRef;
   }
 
   /**
@@ -615,11 +629,11 @@ export class ClrWizardPage implements OnInit {
    * @memberof WizardPage
    *
    */
-  get navTitle(): TemplateRef<any> {
+  get navTitleTemplateRef(): TemplateRef<any> {
     if (this.pageNavTitle) {
       return this.pageNavTitle.pageNavTitleTemplateRef;
     }
-    return this.pageTitle.pageTitleTemplateRef;
+    return this.pageTitle?.pageTitleTemplateRef;
   }
 
   /**

@@ -205,7 +205,7 @@ export class WizardNavigationService implements OnDestroy {
     if (!this.currentPage) {
       return null;
     }
-    return this.currentPage.title;
+    return this.currentPage.titleTemplateRef;
   }
 
   /**

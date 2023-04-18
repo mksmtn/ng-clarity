@@ -14,7 +14,6 @@ import { setupStorybook } from '../../helpers/setup-storybook.helpers';
 const defaultStory: Story = args => ({
   template: `
     <clr-wizard
-      [clrWizardTitle]="clrWizardTitle"
       [clrWizardOpen]="clrWizardOpen"
       [clrWizardClosable]="clrWizardClosable"
       [clrWizardDisableStepnav]="clrWizardDisableStepnav"
@@ -32,14 +31,18 @@ const defaultStory: Story = args => ({
       (clrWizardOnFinish)="clrWizardOnFinish($event)"
       (clrWizardOnReset)="clrWizardOnReset($event)"
     >
+      <clr-wizard-title>
+        <h2>{{ clrWizardTitle }}</h2>
+      </clr-wizard-title>
+
       <clr-wizard-button type="cancel">Cancel</clr-wizard-button>
       <clr-wizard-button type="previous">Previous</clr-wizard-button>
       <clr-wizard-button type="next">Next</clr-wizard-button>
       <clr-wizard-button type="finish">Finish</clr-wizard-button>
 
       <clr-wizard-page 
-        *ngFor="let _ of createArray(pageCount); let i = index"
-        clrWizardPageTitle="Page {{ i + 1 }}" clrWizardPageNavTitle="Page Nav {{ i + 1 }}">
+      *ngFor="let _ of createArray(pageCount); let i = index">
+        <ng-template clrPageTitle>Page {{ i + 1 }}</ng-template>
         <p>Content for page {{ i + 1 }}.</p>
       </clr-wizard-page>
     </clr-wizard>
@@ -48,7 +51,7 @@ const defaultStory: Story = args => ({
 });
 
 const defaultParameters: Parameters = {
-  title: 'Wizard/Wizard',
+  title: 'Wizard/Wizard Custom Titles',
   component: ClrWizard,
   argTypes: {
     // inputs
@@ -103,6 +106,4 @@ const defaultParameters: Parameters = {
   },
 };
 
-const variants: Parameters[] = [];
-
-setupStorybook(ClrWizardModule, defaultStory, defaultParameters, variants);
+setupStorybook(ClrWizardModule, defaultStory, defaultParameters);

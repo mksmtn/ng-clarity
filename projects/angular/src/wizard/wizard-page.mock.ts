@@ -26,5 +26,5 @@ export class MockPage {
     this.hasError = false;
   }
 
-  navTitle: TemplateRef<any>;
+  navTitleTemplateRef: TemplateRef<any>;
 }

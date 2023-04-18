@@ -295,11 +295,11 @@ export default function (): void {
 
       describe('Projection', () => {
         it('wizard title is projected', () => {
-          let val = context.hostElement.querySelector('.clr-wizard-title').textContent.trim();
+          let val = context.hostElement.querySelector('clr-wizard-title').textContent.trim();
           expect(val).toBe(context.hostComponent.projectedTitle, 'projects as expected');
           context.hostComponent.projectedTitle = 'OHAI';
           context.detectChanges();
-          val = context.hostElement.querySelector('.clr-wizard-title').textContent.trim();
+          val = context.hostElement.querySelector('clr-wizard-title').textContent.trim();
           expect(val).toBe('OHAI', 'updates as expected');
         });
 
@@ -309,19 +309,24 @@ export default function (): void {
         });
 
         it('content title should reflect current page and changes with it', () => {
-          let val = context.hostElement.querySelector('.modal-title-text').textContent.trim();
+          const getModalTitleFirstChildNode = () => {
+            return Array.from(context.hostElement.querySelector('.modal-title').childNodes).filter(
+              node => node.nodeType !== Node.COMMENT_NODE
+            )[0];
+          };
+          let val = getModalTitleFirstChildNode().textContent.trim();
           expect(val).toBe('Longer Title for Page 1', 'inits as expected');
 
           wizard.next();
           context.detectChanges();
 
-          val = context.hostElement.querySelector('.modal-title-text').textContent.trim();
+          val = getModalTitleFirstChildNode().textContent.trim();
           expect(val).toBe(context.hostComponent.projectedPageTitle, 'projects as expected');
 
           context.hostComponent.projectedPageTitle = 'OHAI';
           context.detectChanges();
 
-          val = context.hostElement.querySelector('.modal-title-text').textContent.trim();
+          val = getModalTitleFirstChildNode().textContent.trim();
           expect(val).toBe('OHAI', 'updates as expected');
         });
 
@@ -614,6 +619,15 @@ export default function (): void {
           context.hostComponent.stopCancel = true;
           context.detectChanges();
           expect(wizard.stopCancel).toBe(true);
+        });
+      });
+
+      describe('Title', () => {
+        it('can be set and updated via the clrWizardTitle input', () => {
+          expect(wizard.title).toBeUndefined();
+          context.hostComponent.title = 'Updated Title';
+          context.detectChanges();
+          expect(wizard.title).toBe('Updated Title');
         });
       });
     });

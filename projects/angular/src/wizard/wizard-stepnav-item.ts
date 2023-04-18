@@ -30,7 +30,10 @@ import { ClrWizardPage } from './wizard-page';
         <ng-content *ngIf="!hasError"></ng-content>
       </span>
       <span class="clr-wizard-stepnav-link-title">
-        <ng-template [ngTemplateOutlet]="page.navTitle"></ng-template>
+        <ng-container *ngIf="page.navTitle || page.title">
+          {{ page.navTitle || page.title }}
+        </ng-container>
+        <ng-template [ngTemplateOutlet]="page.navTitleTemplateRef"></ng-template>
       </span>
       <span *ngIf="hasError" class="clr-sr-only">{{ commonStrings.keys.wizardStepError }}</span>
       <span *ngIf="!hasError && isComplete" class="clr-sr-only">{{ commonStrings.keys.wizardStepSuccess }}</span>
